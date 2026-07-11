@@ -1,0 +1,8 @@
+{
+  "name": "Software Engineer Portfolio",
+  "description": "A premium, interactive software engineer portfolio with blog, project previews, and filterable tech stack.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
