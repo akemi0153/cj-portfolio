@@ -18,6 +18,7 @@ export type TechCategory = 'Languages' | 'Frontend' | 'Backend' | 'Database' | '
 export interface TechItem {
   name: string;
   category: TechCategory;
+  icon?: string;
 }
 
 export interface BlogPost {

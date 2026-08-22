@@ -1,64 +1,103 @@
-import { motion } from 'motion/react';
-import { ArrowRight, Code2, Rocket, Sparkles } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { ArrowRight, Code2, Landmark, ShieldCheck } from 'lucide-react';
+import { useRef } from 'react';
 
 export default function Hero() {
-  return (
-    <section className="pt-24 md:pt-36 pb-20 min-h-[75vh] flex flex-col justify-center relative">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-10 max-w-4xl"
-      >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 text-sm font-medium mb-8">
-          <Sparkles size={16} className="text-zinc-900 dark:text-zinc-100" />
-          <span>Software Engineer & Problem Solver</span>
-        </div>
-        
-        <h1 className="text-5xl sm:text-7xl md:text-[5rem] font-display font-bold text-zinc-900 dark:text-white tracking-tight mb-8 leading-[1.05]">
-          Architecting <br className="hidden sm:block" />
-          <span className="italic text-zinc-500 dark:text-zinc-400 font-normal">
-            the digital future.
-          </span>
-        </h1>
-        
-        <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-12 font-light max-w-2xl">
-          I'm Christian, a passionate software engineer focused on building robust, scalable backend architectures and intuitive, high-performance web applications.
-        </p>
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href="#projects"
-            className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-medium hover:bg-zinc-800 dark:hover:bg-white transition-all active:scale-95 shadow-md shadow-zinc-900/10"
-          >
-            Explore My Work
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white dark:bg-zinc-900/80 text-zinc-900 dark:text-white font-medium border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all active:scale-95 shadow-sm"
-          >
-            <Code2 size={18} className="text-zinc-500 dark:text-zinc-400" />
-            Let's Collaborate
-          </a>
-        </div>
-        
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="mt-20 pt-8 border-t border-zinc-200 dark:border-zinc-800 flex items-center gap-8 text-zinc-400 dark:text-zinc-500 text-sm font-mono uppercase tracking-widest"
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 15]);
+
+  return (
+    <section ref={containerRef} className="pt-12 pb-24 min-h-[80vh] flex items-center relative perspective-1000">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center w-full">
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10"
         >
-          <div className="flex items-center gap-2">
-            <Rocket size={16} />
-            Fast Delivery
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-300 text-sm font-medium mb-8 shadow-sm">
+            <Landmark size={16} className="text-blue-600 dark:text-blue-400" />
+            <span className="uppercase tracking-wider text-xs font-bold">Public Service & Digital Architecture</span>
           </div>
-          <div className="hidden sm:flex items-center gap-2">
-            <Code2 size={16} />
-            Clean Code
+          
+          <h1 className="text-5xl sm:text-6xl md:text-[5rem] font-display font-bold text-slate-900 dark:text-white tracking-tight mb-6 leading-[1.05]">
+            Building resilient <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+              digital infrastructure.
+            </span>
+          </h1>
+          
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 font-medium max-w-lg">
+            I'm Christian, a passionate software engineer and dedicated government employee, focused on architecting robust backend systems and intuitive web applications serving the public and beyond.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#projects"
+              className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all active:scale-95 shadow-lg shadow-blue-600/20 hover:shadow-xl hover:-translate-y-1"
+            >
+              Explore My Work
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-white dark:bg-slate-900/80 text-slate-900 dark:text-white font-semibold border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 shadow-sm hover:shadow-md hover:-translate-y-1"
+            >
+              <Code2 size={18} className="text-slate-500 dark:text-slate-400" />
+              Let's Collaborate
+            </a>
           </div>
         </motion.div>
-      </motion.div>
+
+        <motion.div 
+          className="relative hidden lg:flex justify-center items-center h-[500px]"
+          style={{ y: y1 }}
+        >
+          {/* Dynamic Floating 3D Elements */}
+          <motion.div
+            animate={{ 
+              y: [-15, 15, -15],
+              rotateX: [-5, 5, -5],
+              rotateY: [-5, 5, -5]
+            }}
+            transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+            className="relative w-[420px] h-[420px] z-10 perspective-1000"
+          >
+            {/* Using a high-quality abstract 3D architecture / shapes image from Unsplash to fit the 'architecture' theme */}
+            <motion.img 
+              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1500&auto=format&fit=crop" 
+              alt="3D Architectural Abstraction" 
+              className="w-full h-full object-cover rounded-3xl shadow-2xl dark:opacity-90"
+              style={{ borderRadius: '40px 10px 40px 10px' }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.4 }}
+            />
+            {/* Glass decoration overlays */}
+            <motion.div 
+              style={{ y: y2, rotate }}
+              className="absolute -bottom-10 -left-10 w-32 h-32 rounded-2xl bg-white/20 dark:bg-white/10 backdrop-blur-2xl border border-white/30 dark:border-white/20 shadow-xl flex items-center justify-center"
+            >
+               <Landmark size={40} className="text-blue-600 dark:text-blue-400" />
+            </motion.div>
+            <motion.div 
+              animate={{ rotate: 360, y: [0, 20, 0] }}
+              transition={{ rotate: { repeat: Infinity, duration: 20, ease: "linear" }, y: { repeat: Infinity, duration: 5, ease: "easeInOut" } }}
+              className="absolute -top-12 -right-8 w-28 h-28 rounded-full bg-gradient-to-tr from-blue-500/20 to-indigo-500/20 backdrop-blur-md border border-white/20 shadow-lg flex items-center justify-center"
+            >
+              <ShieldCheck size={32} className="text-slate-800/50 dark:text-white/50" />
+            </motion.div>
+          </motion.div>
+          
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-50 dark:from-slate-950 via-transparent to-transparent z-20 pointer-events-none" />
+        </motion.div>
+      </div>
     </section>
   );
 }

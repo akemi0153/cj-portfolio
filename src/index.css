@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  @apply bg-transparent text-zinc-900 dark:text-zinc-100 antialiased selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-zinc-900;
+  @apply bg-transparent text-slate-900 dark:text-slate-100 antialiased selection:bg-slate-900 selection:text-white dark:selection:bg-white dark:selection:text-slate-900;
 }
 
 /* Custom Scrollbar for a premium feel */
@@ -25,18 +25,18 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-zinc-300 dark:bg-zinc-700 rounded-md;
+  @apply bg-slate-300 dark:bg-slate-700 rounded-md;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-zinc-400 dark:bg-zinc-600;
+  @apply bg-slate-400 dark:bg-slate-600;
 }
 
 /* Markdown Styles for Blog Post */
 .prose {
-  @apply text-zinc-800 dark:text-zinc-300;
+  @apply text-slate-800 dark:text-slate-300;
 }
 .prose h2, .prose h3, .prose h4 {
-  @apply text-zinc-900 dark:text-zinc-100 font-display mt-12 mb-6;
+  @apply text-slate-900 dark:text-slate-100 font-display mt-12 mb-6;
 }
 .prose h2 {
   @apply text-3xl font-bold;
@@ -51,11 +51,19 @@ body {
   @apply list-disc list-inside mb-6 space-y-2 text-lg font-light;
 }
 .prose pre {
-  @apply bg-zinc-900 dark:bg-zinc-950 border border-zinc-800 dark:border-zinc-800 rounded-xl p-6 overflow-x-auto mb-8 font-mono text-sm shadow-sm;
+  @apply bg-slate-900 dark:bg-slate-950 border border-slate-800 dark:border-slate-800 rounded-xl p-6 overflow-x-auto mb-8 font-mono text-sm shadow-sm;
 }
 .prose code {
-  @apply text-zinc-800 dark:text-zinc-200 font-mono text-sm bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded border border-zinc-200 dark:border-zinc-700;
+  @apply text-slate-800 dark:text-slate-200 font-mono text-sm bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700;
 }
 .prose pre code {
-  @apply bg-transparent text-zinc-300 p-0 border-none;
+  @apply bg-transparent text-slate-300 p-0 border-none;
+}
+
+@utility bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+}
+.dark .bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 }

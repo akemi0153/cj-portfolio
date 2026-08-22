@@ -9,18 +9,13 @@ export default function Layout() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check local storage or system preference
     const saved = localStorage.getItem('darkMode');
-    if (saved !== null) {
-      return saved === 'true';
-    }
+    if (saved !== null) return saved === 'true';
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -34,43 +29,34 @@ export default function Layout() {
     localStorage.setItem('darkMode', isDarkMode.toString());
   }, [isDarkMode]);
 
-  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen text-zinc-900 dark:text-zinc-100 font-sans flex flex-col relative">
-      {/* Scenic Background Image */}
-      <div 
-        className="fixed inset-0 z-[-2] w-full h-full object-cover transition-opacity duration-1000"
-        style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1518002171953-a080ee817e1f?q=80&w=3000&auto=format&fit=crop")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
-        }}
-      />
-      {/* Background Overlay */}
-      <div className="fixed inset-0 z-[-1] bg-[#FAFAFA]/90 dark:bg-zinc-950/90 backdrop-blur-[2px] transition-colors duration-500" />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans flex flex-col relative overflow-hidden transition-colors duration-500">
+      
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 z-[-2]">
+        <div className="absolute top-0 -left-1/4 w-full h-[500px] bg-blue-500/10 dark:bg-blue-600/10 blur-[120px] rounded-full mix-blend-multiply dark:mix-blend-screen animate-pulse" />
+        <div className="absolute top-1/2 -right-1/4 w-full h-[500px] bg-purple-500/10 dark:bg-purple-600/10 blur-[120px] rounded-full mix-blend-multiply dark:mix-blend-screen" />
+      </div>
 
-      {/* Navigation */}
       <header
         className={cn(
-          'fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b',
+          'fixed top-0 inset-x-0 z-50 transition-all duration-500',
           scrolled 
-            ? 'bg-[#FAFAFA]/80 dark:bg-zinc-950/80 backdrop-blur-md border-zinc-200 dark:border-zinc-800 py-4 shadow-sm' 
-            : 'bg-transparent border-transparent py-6'
+            ? 'bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50 py-4 shadow-sm' 
+            : 'bg-transparent py-6 border-b border-transparent'
         )}
       >
         <div className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 text-zinc-900 dark:text-white group">
-            <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-white flex items-center justify-center text-white dark:text-zinc-900 transition-transform group-hover:scale-105">
-              <Terminal size={18} />
+          <Link to="/" className="flex items-center gap-3 text-slate-900 dark:text-white group">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 transition-transform group-hover:scale-105 group-hover:rotate-3 duration-300">
+              <Terminal size={20} />
             </div>
-            <span className="font-semibold tracking-tight text-lg">christian.dev</span>
+            <span className="font-bold tracking-tight text-xl">christian.dev</span>
           </Link>
-
           <nav className="flex items-center gap-6 md:gap-8">
             <div className="hidden md:flex items-center gap-8">
               <NavLink to="/">Work</NavLink>
@@ -80,7 +66,7 @@ export default function Layout() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-200/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 hover:bg-slate-300/50 dark:hover:bg-slate-700/50 transition-all hover:scale-105"
                 aria-label="Toggle dark mode"
               >
                 {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
@@ -88,7 +74,7 @@ export default function Layout() {
               
               <a 
                 href="#contact" 
-                className="hidden md:inline-flex text-sm font-medium text-white dark:text-zinc-900 bg-zinc-900 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-100 px-5 py-2.5 rounded-full transition-colors shadow-sm"
+                className="hidden md:inline-flex text-sm font-semibold text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 px-6 py-2.5 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
                 Contact Me
               </a>
@@ -97,21 +83,19 @@ export default function Layout() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="pt-24 pb-20 max-w-6xl mx-auto px-6 md:px-12 flex-grow w-full">
+      <main className="pt-28 pb-20 max-w-6xl mx-auto px-6 md:px-12 flex-grow w-full relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <Outlet />
           </motion.div>
         </AnimatePresence>
       </main>
-
       <Footer />
     </div>
   );
@@ -125,11 +109,15 @@ function NavLink({ to, children }: { to: string; children: React.ReactNode }) {
     <Link
       to={to}
       className={cn(
-        'text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white',
-        isActive ? 'text-zinc-900 dark:text-white' : 'text-zinc-500 dark:text-zinc-400'
+        'text-sm font-semibold transition-all duration-300 relative group',
+        isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
       )}
     >
       {children}
+      <span className={cn(
+        "absolute -bottom-1 left-0 w-full h-0.5 rounded-full transition-all duration-300",
+        isActive ? "bg-blue-600 dark:bg-blue-400 scale-x-100" : "bg-slate-900 dark:bg-white scale-x-0 group-hover:scale-x-100"
+      )} />
     </Link>
   );
 }

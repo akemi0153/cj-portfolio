@@ -12,8 +12,8 @@ export default function Blog() {
         description="Thoughts, learnings, and technical deep-dives from my journey as a software engineer."
       />
       <div className="space-y-6 pt-12">
-        <h1 className="text-5xl md:text-6xl font-display font-bold text-zinc-900 dark:text-white tracking-tight">Writing</h1>
-        <p className="text-zinc-600 dark:text-zinc-400 max-w-2xl text-xl font-light leading-relaxed">
+        <h1 className="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Writing</h1>
+        <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-xl font-medium leading-relaxed">
           Thoughts, learnings, and technical deep-dives from my journey as a software engineer.
         </p>
       </div>
@@ -28,38 +28,32 @@ export default function Blog() {
           >
             <Link 
               to={`/blog/${post.id}`}
-              className="group block p-8 md:p-10 rounded-3xl bg-white dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 dark:hover:shadow-black/50 transition-all duration-300"
+              className="group block p-8 rounded-3xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:shadow-2xl hover:shadow-blue-900/10 dark:hover:shadow-black/50 hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="flex flex-col md:flex-row md:items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400 mb-6 font-mono font-medium tracking-wide">
-                <div className="flex items-center gap-2">
-                  <Calendar size={16} />
-                  <span>{post.date}</span>
-                </div>
-                <span className="hidden md:block text-zinc-300 dark:text-zinc-600">•</span>
-                <div className="flex items-center gap-2">
-                  <Clock size={16} />
-                  <span>{post.readTime}</span>
-                </div>
-              </div>
-              
-              <h2 className="text-3xl font-display font-bold text-zinc-900 dark:text-white mb-4 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
-                {post.title}
-              </h2>
-              
-              <p className="text-zinc-600 dark:text-zinc-400 mb-8 leading-relaxed max-w-3xl text-lg font-light">
-                {post.excerpt}
-              </p>
-              
-              <div className="flex items-center justify-between">
-                <div className="flex gap-2">
-                  {post.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1.5 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-600 dark:text-zinc-400">
-                      {tag}
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 text-sm font-semibold text-slate-500 dark:text-slate-400">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar size={16} />
+                      {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </span>
-                  ))}
+                    <span className="flex items-center gap-1.5">
+                      <Clock size={16} />
+                      {post.readTime}
+                    </span>
+                  </div>
+                  <h2 className="text-2xl font-display font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {post.title}
+                  </h2>
+                  <p className="text-slate-600 dark:text-slate-400 font-medium">
+                    {post.excerpt}
+                  </p>
                 </div>
-                <div className="flex items-center gap-2 text-zinc-900 dark:text-white font-semibold text-sm group-hover:gap-3 transition-all">
-                  Read article <ArrowRight size={16} />
+                
+                <div className="shrink-0 pt-2">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               </div>
             </Link>

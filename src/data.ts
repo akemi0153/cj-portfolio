@@ -62,16 +62,16 @@ export const projects: Project[] = [
   {
     id: 'ctts-salinbanwa',
     title: 'CTTS Salinbanwa',
-    description: 'A community-focused web platform for cultural preservation and local engagement.',
-    longDescription: 'CTTS Salinbanwa is a dedicated platform designed to document, share, and preserve local cultural heritage. It provides an interactive space for the community to engage with historical archives and cultural events.',
-    image: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=2000&auto=format&fit=crop',
+    description: 'A local language translator bridging English, Tagalog, and Casiguranin.',
+    longDescription: 'CTTS Salinbanwa is a dedicated platform designed to translate and preserve the local Casiguran language. It provides an intuitive interface for translating between English, Tagalog, and Casiguran, fostering cultural preservation through language.',
+    image: '/567176759_1310893256954766_4710285668659820098_n.png',
     tags: ['Next.js', 'Supabase', 'Tailwind CSS', 'Vercel'],
     category: 'Fullstack',
     demoUrl: 'https://ctts-salinbanwa.vercel.app',
     features: [
-      'Interactive cultural archives and galleries',
-      'Community event management and tracking',
-      'Secure content management system',
+      'Multi-language translation (English, Tagalog, Casiguran)',
+      'Community-driven dictionary updates',
+      'Fast and intuitive translation interface',
       'High-performance and SEO-optimized pages'
     ]
   },
