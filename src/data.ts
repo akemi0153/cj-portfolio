@@ -1,30 +1,30 @@
 import { Project, TechItem, BlogPost } from './types';
 
 export const techStack: TechItem[] = [
-  { name: 'TypeScript', category: 'Languages' },
-  { name: 'JavaScript', category: 'Languages' },
-  { name: 'Python', category: 'Languages' },
+  { name: 'TypeScript', category: 'Languages', icon: 'https://cdn.simpleicons.org/typescript' },
+  { name: 'JavaScript', category: 'Languages', icon: 'https://cdn.simpleicons.org/javascript' },
+  { name: 'Python', category: 'Languages', icon: 'https://cdn.simpleicons.org/python' },
   
-  { name: 'React', category: 'Frontend' },
-  { name: 'Next.js', category: 'Frontend' },
-  { name: 'Tailwind CSS', category: 'Frontend' },
-  { name: 'Framer Motion', category: 'Frontend' },
-  { name: 'Vite', category: 'Frontend' },
+  { name: 'React', category: 'Frontend', icon: 'https://cdn.simpleicons.org/react' },
+  { name: 'Next.js', category: 'Frontend', icon: 'https://cdn.simpleicons.org/nextdotjs' },
+  { name: 'Tailwind CSS', category: 'Frontend', icon: 'https://cdn.simpleicons.org/tailwindcss' },
+  { name: 'Framer Motion', category: 'Frontend', icon: 'https://cdn.simpleicons.org/framer' },
+  { name: 'Vite', category: 'Frontend', icon: 'https://cdn.simpleicons.org/vite' },
   
-  { name: 'Node.js', category: 'Backend' },
-  { name: 'Express', category: 'Backend' },
-  { name: 'NestJS', category: 'Backend' },
-  { name: 'GraphQL', category: 'Backend' },
-  { name: 'PostgreSQL', category: 'Backend' },
+  { name: 'Node.js', category: 'Backend', icon: 'https://cdn.simpleicons.org/nodedotjs' },
+  { name: 'Express', category: 'Backend', icon: 'https://cdn.simpleicons.org/express' },
+  { name: 'NestJS', category: 'Backend', icon: 'https://cdn.simpleicons.org/nestjs' },
+  { name: 'GraphQL', category: 'Backend', icon: 'https://cdn.simpleicons.org/graphql' },
+  { name: 'PostgreSQL', category: 'Backend', icon: 'https://cdn.simpleicons.org/postgresql' },
   
-  { name: 'Supabase', category: 'Database' },
-  { name: 'Firebase', category: 'Database' },
-  { name: 'MongoDB', category: 'Database' },
+  { name: 'Supabase', category: 'Database', icon: 'https://cdn.simpleicons.org/supabase' },
+  { name: 'Firebase', category: 'Database', icon: 'https://cdn.simpleicons.org/firebase' },
+  { name: 'MongoDB', category: 'Database', icon: 'https://cdn.simpleicons.org/mongodb' },
   
-  { name: 'Docker', category: 'DevOps & Tools' },
-  { name: 'GitHub Actions', category: 'DevOps & Tools' },
-  { name: 'Git', category: 'DevOps & Tools' },
-  { name: 'Vercel', category: 'DevOps & Tools' },
+  { name: 'Docker', category: 'DevOps & Tools', icon: 'https://cdn.simpleicons.org/docker' },
+  { name: 'GitHub Actions', category: 'DevOps & Tools', icon: 'https://cdn.simpleicons.org/githubactions' },
+  { name: 'Git', category: 'DevOps & Tools', icon: 'https://cdn.simpleicons.org/git' },
+  { name: 'Vercel', category: 'DevOps & Tools', icon: 'https://cdn.simpleicons.org/vercel' },
 ];
 
 export const projects: Project[] = [
