@@ -1,24 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Github, Globe, Mail } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { techStack, projects } from '../data';
 import { Project, TechCategory } from '../types';
 import { cn } from '../utils';
 import Hero from '../components/Hero';
 import SEO from '../components/SEO';
+import ContactForm from '../components/ContactForm';
 
 export default function Home() {
   return (
-    <div className="space-y-32">
+    <div className="space-y-32 md:space-y-48">
       <SEO 
         title="Software Engineer" 
-        description="I'm Christian, a passionate software engineer and dedicated government employee, focused on building robust, scalable backend architectures and intuitive, high-performance web applications serving the public and beyond."
+        description="I'm Kriyos, a passionate software engineer and dedicated government employee, focused on building robust, scalable backend architectures and intuitive, high-performance web applications serving the public and beyond."
       />
       <Hero />
       <TechStackSection />
       <ProjectsSection />
       <MusicSection />
-      <ContactSection />
+      <ContactForm />
     </div>
   );
 }
@@ -28,31 +29,31 @@ function TechStackSection() {
   const [activeCategory, setActiveCategory] = useState<TechCategory>(categories[0] as TechCategory || 'Frontend');
 
   return (
-    <section className="space-y-12 scroll-mt-32">
-      <div className="space-y-4">
-        <h2 className="text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Tech Stack</h2>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-lg font-medium">
-          The tools and technologies I use to build robust, scalable applications.
-        </p>
+    <section className="scroll-mt-32 max-w-7xl mx-auto">
+      <div className="mb-16">
+        <h2 className="text-sm font-bold text-stone-500 dark:text-stone-400 uppercase tracking-[0.2em] mb-4">Toolkit</h2>
+        <h3 className="text-4xl md:text-5xl font-display font-bold text-stone-900 dark:text-white tracking-tighter">
+          Technologies I leverage.
+        </h3>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-12">
-        <div className="flex md:flex-col gap-2 overflow-x-auto pb-4 md:pb-0 no-scrollbar md:w-48 shrink-0">
+      <div className="grid lg:grid-cols-[280px_1fr] gap-12 lg:gap-20">
+        <div className="flex lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 no-scrollbar">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category as TechCategory)}
               className={cn(
-                "px-5 py-3 text-left rounded-xl transition-all whitespace-nowrap text-sm font-semibold relative overflow-hidden group",
+                "px-6 py-4 text-left rounded-2xl transition-all whitespace-nowrap text-sm font-bold relative overflow-hidden group border border-transparent",
                 activeCategory === category 
-                  ? "text-blue-600 dark:text-blue-400 shadow-sm" 
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/50"
+                  ? "text-stone-900 dark:text-white bg-white dark:bg-[#0A0A0A] border-black/5 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.4)]" 
+                  : "text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5"
               )}
             >
               {activeCategory === category && (
                 <motion.div 
-                  layoutId="activeCategory"
-                  className="absolute inset-0 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl -z-10"
+                  layoutId="activeCategoryIndicator"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-black dark:bg-white rounded-r-full hidden lg:block"
                 />
               )}
               {category}
@@ -60,26 +61,30 @@ function TechStackSection() {
           ))}
         </div>
 
-        <div className="flex-grow">
+        <div className="flex-grow min-h-[300px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+              initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
+              animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+              exit={{ opacity: 0, filter: 'blur(10px)', y: -20 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4"
             >
               {techStack.filter(tech => tech.category === activeCategory).map((tech, idx) => (
                 <motion.div
                   key={tech.name}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: idx * 0.05 }}
-                  className="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all hover:-translate-y-1"
+                  transition={{ delay: idx * 0.05, duration: 0.4 }}
+                  className="flex flex-col items-center justify-center gap-4 p-8 rounded-3xl bg-white dark:bg-[#0A0A0A] border border-black/5 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all hover:-translate-y-2 group shadow-[0_4px_20px_rgb(0,0,0,0.02)] dark:shadow-none"
                 >
-                  {tech.icon && <img src={tech.icon} alt={tech.name} className="w-8 h-8 object-contain" />}
-                  <span className="font-semibold text-slate-700 dark:text-slate-300 text-sm">{tech.name}</span>
+                  {tech.icon ? (
+                    <img src={tech.icon} alt={tech.name} className="w-10 h-10 object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500" />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-stone-100 dark:bg-white/10" />
+                  )}
+                  <span className="font-bold text-stone-700 dark:text-stone-300 text-sm tracking-wide">{tech.name}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -92,26 +97,26 @@ function TechStackSection() {
 
 function ProjectsSection() {
   return (
-    <section id="projects" className="space-y-12 scroll-mt-32">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-        <div className="space-y-4">
-          <h2 className="text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Selected Work</h2>
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-lg font-medium">
-            A collection of projects showcasing my expertise in building scalable architectures and intuitive interfaces.
-          </p>
+    <section id="projects" className="scroll-mt-32 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div>
+          <h2 className="text-sm font-bold text-stone-500 dark:text-stone-400 uppercase tracking-[0.2em] mb-4">Selected Work</h2>
+          <h3 className="text-4xl md:text-5xl font-display font-bold text-stone-900 dark:text-white tracking-tighter">
+            Featured Projects.
+          </h3>
         </div>
         <a 
           href="https://github.com/christian-dev" 
           target="_blank" 
           rel="noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-stone-100 dark:bg-white/5 hover:bg-stone-200 dark:hover:bg-white/10 text-sm font-bold text-stone-900 dark:text-white transition-all hover:scale-105 group"
         >
-          View all on GitHub
-          <ExternalLink size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          View GitHub
+          <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid gap-8">
         {projects.map((project, idx) => (
           <ProjectCard key={project.id} project={project} index={idx} />
         ))}
@@ -123,51 +128,45 @@ function ProjectsSection() {
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group cursor-pointer rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm hover:shadow-2xl hover:shadow-blue-900/10 dark:hover:shadow-black/50 transition-all duration-500 hover:-translate-y-2"
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="group grid md:grid-cols-2 gap-0 bg-white dark:bg-[#0A0A0A] rounded-[2.5rem] overflow-hidden border border-black/5 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_20px_60px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_0_40px_rgba(255,255,255,0.05)] transition-all duration-700"
     >
-      <div className="aspect-video relative overflow-hidden bg-slate-100 dark:bg-slate-800/50">
-        <div className="absolute inset-0 bg-slate-900/20 dark:bg-slate-900/40 group-hover:bg-transparent transition-colors duration-500 z-10" />
-        <img 
-          src={project.image} 
-          alt={project.title} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-      </div>
-      <div className="p-8 flex flex-col flex-grow relative">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">{project.category}</span>
-          <div className="flex gap-3">
-            {project.repoUrl && (
-              <a href={project.repoUrl} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" onClick={e => e.stopPropagation()}>
-                <Github size={20} />
-              </a>
-            )}
-            {project.demoUrl && (
-              <a href={project.demoUrl} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" onClick={e => e.stopPropagation()}>
-                <ExternalLink size={20} />
-              </a>
-            )}
-          </div>
-        </div>
-        <h3 className="text-2xl font-display font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{project.title}</h3>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 flex-grow leading-relaxed font-medium">{project.description}</p>
+      <div className="p-10 lg:p-16 flex flex-col justify-center order-2 md:order-1">
+        <span className="text-xs font-bold text-stone-500 dark:text-stone-400 uppercase tracking-[0.2em] mb-4">{project.category}</span>
+        <h3 className="text-3xl md:text-4xl font-display font-bold text-stone-900 dark:text-white mb-6 tracking-tight group-hover:text-stone-600 dark:group-hover:text-stone-300 transition-colors">{project.title}</h3>
+        <p className="text-stone-600 dark:text-stone-400 mb-10 leading-relaxed font-medium text-lg">{project.description}</p>
         
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {project.tags.slice(0, 4).map(tag => (
-            <span key={tag} className="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-300 shadow-sm">
+        <div className="flex flex-wrap gap-2 mb-12">
+          {project.tags.map(tag => (
+            <span key={tag} className="px-4 py-2 rounded-full bg-stone-100 dark:bg-white/5 text-xs font-bold text-stone-600 dark:text-stone-300">
               {tag}
             </span>
           ))}
-          {project.tags.length > 4 && (
-            <span className="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-300 shadow-sm">
-              +{project.tags.length - 4}
-            </span>
+        </div>
+
+        <div className="flex gap-4 mt-auto">
+          {project.repoUrl && (
+            <a href={project.repoUrl} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-stone-100 dark:bg-white/10 flex items-center justify-center text-stone-900 dark:text-white hover:scale-110 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
+              <Github size={20} />
+            </a>
+          )}
+          {project.demoUrl && (
+            <a href={project.demoUrl} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-stone-100 dark:bg-white/10 flex items-center justify-center text-stone-900 dark:text-white hover:scale-110 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">
+              <ExternalLink size={20} />
+            </a>
           )}
         </div>
+      </div>
+      <div className="relative h-64 md:h-full min-h-[300px] overflow-hidden order-1 md:order-2 bg-stone-100 dark:bg-white/5">
+        <img 
+          src={project.image} 
+          alt={project.title} 
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-black/10 dark:bg-black/30 group-hover:bg-transparent transition-colors duration-700" />
       </div>
     </motion.div>
   );
@@ -175,23 +174,23 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 function MusicSection() {
   return (
-    <section className="space-y-12 scroll-mt-32">
-      <div className="space-y-4">
-        <h2 className="text-4xl font-display font-bold text-slate-900 dark:text-white tracking-tight">On Repeat</h2>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-lg font-medium">
-          The soundtrack to my coding sessions and late-night debugging.
-        </p>
+    <section className="scroll-mt-32 max-w-7xl mx-auto">
+      <div className="mb-12">
+        <h2 className="text-sm font-bold text-stone-500 dark:text-stone-400 uppercase tracking-[0.2em] mb-4">On Repeat</h2>
+        <h3 className="text-4xl md:text-5xl font-display font-bold text-stone-900 dark:text-white tracking-tighter">
+          The soundtrack to late nights.
+        </h3>
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6 }}
-        className="rounded-2xl overflow-hidden bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 shadow-sm p-4 md:p-6"
+        initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="rounded-[2.5rem] overflow-hidden bg-white dark:bg-[#0A0A0A] border border-black/5 dark:border-white/10 p-6 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none"
       >
         <iframe 
-          style={{ borderRadius: '16px' }}
+          style={{ borderRadius: '24px' }}
           src="https://open.spotify.com/embed/album/7onvGPxX3SF77hLJKGm9ev?utm_source=generator&theme=0" 
           width="100%" 
           height="352" 
@@ -199,99 +198,9 @@ function MusicSection() {
           allowFullScreen 
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
           loading="lazy"
+          className="bg-stone-100 dark:bg-white/5"
         />
       </motion.div>
-    </section>
-  );
-}
-
-function ContactSection() {
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('submitting');
-    setTimeout(() => {
-      setStatus('success');
-      setTimeout(() => setStatus('idle'), 3000);
-    }, 1500);
-  };
-
-  return (
-    <section id="contact" className="py-24 border-t border-slate-200/50 dark:border-slate-800/50 scroll-mt-20">
-      <div className="grid md:grid-cols-2 gap-16 items-start">
-        <div className="space-y-8">
-          <h2 className="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white tracking-tight leading-[1.1]">
-            Let's build something <br/> <span className="italic text-slate-500 dark:text-slate-400 font-medium">together.</span>
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl leading-relaxed max-w-md font-medium">
-            I'm currently looking for new opportunities. Whether you have a project in mind or just want to say hi, I'll try my best to get back to you!
-          </p>
-          
-          <div className="space-y-4 pt-4">
-            <div className="flex items-center gap-4 text-slate-900 dark:text-white">
-              <div className="w-14 h-14 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center border border-blue-100 dark:border-blue-800/50">
-                <Mail size={24} className="text-blue-600 dark:text-blue-400" />
-              </div>
-              <div>
-                <p className="text-sm text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">Email</p>
-                <a href="mailto:christianjosephmarigmen39@gmail.com" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-semibold text-lg">
-                  christianjosephmarigmen39@gmail.com
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-5 bg-white dark:bg-slate-900/50 p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/20 dark:shadow-black/20">
-          <div className="grid sm:grid-cols-2 gap-5">
-            <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-bold text-slate-700 dark:text-slate-300">Name</label>
-              <input 
-                id="name"
-                required
-                className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-5 py-4 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all placeholder:text-slate-400 font-medium"
-                placeholder="John Doe"
-              />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-bold text-slate-700 dark:text-slate-300">Email</label>
-              <input 
-                id="email"
-                type="email"
-                required
-                className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-5 py-4 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all placeholder:text-slate-400 font-medium"
-                placeholder="john@example.com"
-              />
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <label htmlFor="message" className="text-sm font-bold text-slate-700 dark:text-slate-300">Message</label>
-            <textarea 
-              id="message"
-              required
-              rows={5}
-              className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl px-5 py-4 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all resize-none placeholder:text-slate-400 font-medium"
-              placeholder="Tell me about your project..."
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={status !== 'idle'}
-            className="w-full bg-blue-600 text-white font-bold rounded-xl px-6 py-4 mt-2 hover:bg-blue-700 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 active:scale-[0.98]"
-          >
-            {status === 'submitting' ? (
-              <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            ) : status === 'success' ? (
-              'Message Sent!'
-            ) : (
-              'Send Message'
-            )}
-          </button>
-        </form>
-      </div>
     </section>
   );
 }

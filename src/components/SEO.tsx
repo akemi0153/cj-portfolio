@@ -8,7 +8,7 @@ interface SEOProps {
 }
 
 export default function SEO({ title, description, image, url }: SEOProps) {
-  const siteTitle = `${title} | Christian.dev`;
+  const siteTitle = `${title} | Kriyos.dev`;
 
   return (
     <Helmet>

@@ -1,103 +1,83 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowRight, Code2, Landmark, ShieldCheck } from 'lucide-react';
-import { useRef } from 'react';
+import { motion } from 'motion/react';
+import { ArrowRight, Code2 } from 'lucide-react';
 
 export default function Hero() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 15]);
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
 
   return (
-    <section ref={containerRef} className="pt-12 pb-24 min-h-[80vh] flex items-center relative perspective-1000">
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center w-full">
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 text-slate-700 dark:text-slate-300 text-sm font-medium mb-8 shadow-sm">
-            <Landmark size={16} className="text-blue-600 dark:text-blue-400" />
-            <span className="uppercase tracking-wider text-xs font-bold">Public Service & Digital Architecture</span>
-          </div>
-          
-          <h1 className="text-5xl sm:text-6xl md:text-[5rem] font-display font-bold text-slate-900 dark:text-white tracking-tight mb-6 leading-[1.05]">
-            Building resilient <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
-              digital infrastructure.
-            </span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 font-medium max-w-lg">
-            I'm Christian, a passionate software engineer and dedicated government employee, focused on architecting robust backend systems and intuitive web applications serving the public and beyond.
+    <section className="pt-20 pb-32 min-h-[85vh] flex items-center relative">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="max-w-4xl mx-auto text-center relative z-10"
+      >
+        <motion.div variants={itemVariants} className="mb-8 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-stone-100 dark:bg-white/5 border border-black/5 dark:border-white/10 text-stone-600 dark:text-stone-300 text-xs font-bold uppercase tracking-[0.2em] shadow-sm">
+          <span>Public Service & Digital Architecture</span>
+        </motion.div>
+        
+        <div className="overflow-hidden mb-6">
+          <motion.h1 variants={itemVariants} className="text-6xl sm:text-7xl md:text-[5.5rem] font-display font-bold text-stone-900 dark:text-white tracking-tighter leading-[1.05]">
+            Building resilient
+          </motion.h1>
+        </div>
+        <div className="overflow-hidden mb-10">
+          <motion.h1 variants={itemVariants} className="text-6xl sm:text-7xl md:text-[5.5rem] font-display font-bold text-stone-400 dark:text-stone-500 tracking-tighter leading-[1.05]">
+            digital infrastructure.
+          </motion.h1>
+        </div>
+        
+        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-stone-600 dark:text-stone-400 leading-relaxed font-medium max-w-2xl mx-auto mb-6">
+          I'm Kriyos, a passionate software engineer and dedicated government employee, focused on architecting robust backend systems and intuitive web applications serving the public and beyond.
+        </motion.p>
+        
+        <motion.div variants={itemVariants} className="flex flex-col items-center justify-center mb-12">
+          <p className="text-sm font-medium text-stone-500 dark:text-stone-400 italic bg-stone-100 dark:bg-white/5 px-6 py-3 rounded-full border border-black/5 dark:border-white/10 shadow-sm inline-flex items-center gap-3">
+            <span className="font-bold text-stone-900 dark:text-white uppercase tracking-widest text-xs not-italic">Kriyos</span>
+            <span className="w-1 h-1 rounded-full bg-stone-300 dark:bg-stone-600"></span>
+            <span>Follower of Christ whom God will bless ( Χριστιανός Ἰωσήφ )</span>
           </p>
+        </motion.div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href="#projects"
-              className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all active:scale-95 shadow-lg shadow-blue-600/20 hover:shadow-xl hover:-translate-y-1"
-            >
+        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="#projects"
+            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold transition-all active:scale-95 shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:scale-105 overflow-hidden"
+          >
+            <span className="relative z-10 flex items-center gap-2">
               Explore My Work
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-white dark:bg-slate-900/80 text-slate-900 dark:text-white font-semibold border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 shadow-sm hover:shadow-md hover:-translate-y-1"
-            >
-              <Code2 size={18} className="text-slate-500 dark:text-slate-400" />
-              Let's Collaborate
-            </a>
-          </div>
-        </motion.div>
-
-        <motion.div 
-          className="relative hidden lg:flex justify-center items-center h-[500px]"
-          style={{ y: y1 }}
-        >
-          {/* Dynamic Floating 3D Elements */}
-          <motion.div
-            animate={{ 
-              y: [-15, 15, -15],
-              rotateX: [-5, 5, -5],
-              rotateY: [-5, 5, -5]
-            }}
-            transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-            className="relative w-[420px] h-[420px] z-10 perspective-1000"
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-stone-800 to-black dark:from-stone-200 dark:to-white opacity-0 group-hover:opacity-100 transition-opacity z-0" />
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-transparent text-stone-900 dark:text-white font-bold border border-stone-200 dark:border-white/10 hover:bg-stone-50 dark:hover:bg-white/5 transition-all active:scale-95 hover:scale-105"
           >
-            {/* Using a high-quality abstract 3D architecture / shapes image from Unsplash to fit the 'architecture' theme */}
-            <motion.img 
-              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1500&auto=format&fit=crop" 
-              alt="3D Architectural Abstraction" 
-              className="w-full h-full object-cover rounded-3xl shadow-2xl dark:opacity-90"
-              style={{ borderRadius: '40px 10px 40px 10px' }}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.4 }}
-            />
-            {/* Glass decoration overlays */}
-            <motion.div 
-              style={{ y: y2, rotate }}
-              className="absolute -bottom-10 -left-10 w-32 h-32 rounded-2xl bg-white/20 dark:bg-white/10 backdrop-blur-2xl border border-white/30 dark:border-white/20 shadow-xl flex items-center justify-center"
-            >
-               <Landmark size={40} className="text-blue-600 dark:text-blue-400" />
-            </motion.div>
-            <motion.div 
-              animate={{ rotate: 360, y: [0, 20, 0] }}
-              transition={{ rotate: { repeat: Infinity, duration: 20, ease: "linear" }, y: { repeat: Infinity, duration: 5, ease: "easeInOut" } }}
-              className="absolute -top-12 -right-8 w-28 h-28 rounded-full bg-gradient-to-tr from-blue-500/20 to-indigo-500/20 backdrop-blur-md border border-white/20 shadow-lg flex items-center justify-center"
-            >
-              <ShieldCheck size={32} className="text-slate-800/50 dark:text-white/50" />
-            </motion.div>
-          </motion.div>
-          
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-50 dark:from-slate-950 via-transparent to-transparent z-20 pointer-events-none" />
+            <Code2 size={18} className="text-stone-400" />
+            Let's Collaborate
+          </a>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

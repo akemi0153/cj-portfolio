@@ -11,10 +11,10 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="py-20 text-center">
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Post not found</h1>
-        <Link to="/blog" className="text-blue-600 dark:text-blue-400 hover:underline">
-          Return to blog
+      <div className="py-32 text-center">
+        <h1 className="text-3xl font-display font-bold text-stone-900 dark:text-white mb-6">Post not found</h1>
+        <Link to="/blog" className="text-stone-500 hover:text-stone-900 dark:hover:text-white font-bold uppercase tracking-widest transition-colors">
+          Return to journal
         </Link>
       </div>
     );
@@ -22,9 +22,10 @@ export default function BlogPost() {
 
   return (
     <motion.article 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="max-w-3xl mx-auto space-y-12 pt-8"
+      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="max-w-3xl mx-auto space-y-16 pt-10"
     >
       <SEO 
         title={post.title} 
@@ -33,29 +34,29 @@ export default function BlogPost() {
       
       <Link 
         to="/blog"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+        className="inline-flex items-center gap-2 text-xs font-bold text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white uppercase tracking-[0.2em] transition-colors group"
       >
-        <ArrowLeft size={16} />
-        Back to writing
+        <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+        Back to journal
       </Link>
 
-      <header className="space-y-6">
-        <div className="flex items-center gap-4 text-sm font-semibold text-slate-500 dark:text-slate-400">
-          <span className="flex items-center gap-1.5">
+      <header className="space-y-8">
+        <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-stone-500 dark:text-stone-400 uppercase tracking-widest">
+          <span className="flex items-center gap-2">
             <Calendar size={16} />
             {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-2">
             <Clock size={16} />
             {post.readTime}
           </span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
+        <h1 className="text-4xl md:text-6xl font-display font-bold text-stone-900 dark:text-white tracking-tighter leading-[1.1]">
           {post.title}
         </h1>
       </header>
 
-      <div className="prose prose-slate dark:prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-700">
+      <div className="prose prose-stone dark:prose-invert prose-lg md:prose-xl max-w-none prose-headings:font-display prose-headings:font-bold prose-headings:tracking-tight prose-a:font-bold prose-a:underline-offset-4 hover:prose-a:text-stone-600 dark:hover:prose-a:text-stone-300">
         <Markdown>{post.content}</Markdown>
       </div>
     </motion.article>
