@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, CheckCircle2, AlertCircle } from 'lucide-react';
 import { cn } from '../utils';
 
-export default function ContactForm() {
+interface ContactFormProps {
+  initialMessage?: string;
+}
+
+export default function ContactForm({ initialMessage }: ContactFormProps) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    if (initialMessage) {
+      setFormData(prev => ({ ...prev, message: initialMessage }));
+    }
+  }, [initialMessage]);
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
