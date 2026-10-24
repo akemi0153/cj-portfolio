@@ -7,7 +7,7 @@ import { cn } from '../utils';
 import Hero from '../components/Hero';
 import SEO from '../components/SEO';
 import TechStackSection from '../components/TechStackSection';
-import ContactForm from '../components/ContactForm';
+import Contact from '../components/Contact';
 import FastTrackEstimator from '../components/FastTrackEstimator';
 import ReliabilitySection from '../components/ReliabilitySection';
 import ProjectDetailModal from '../components/ProjectDetailModal';
@@ -37,7 +37,7 @@ export default function Home() {
       <FastTrackEstimator onApplyScopeToContact={setInitialContactMessage} />
       <ReliabilitySection />
       <MusicSection />
-      <ContactForm initialMessage={initialContactMessage} />
+      <Contact initialMessage={initialContactMessage} />
 
       <ProjectDetailModal
         project={selectedProject}
